@@ -13,8 +13,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Run ESPHome Vount
-        uses: esphome/build-action@v2
+      - name: Build ESPHome configuration
+        uses: esphome/build-action@main
         with:
-          yaml_file: my-device.yaml # Change this to your filename
+          yaml-file: wheatgrass-sensors.yaml
           version: latest
