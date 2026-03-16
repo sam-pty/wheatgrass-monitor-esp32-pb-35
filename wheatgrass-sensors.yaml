@@ -23,3 +23,9 @@ wifi:
     password: !secret ap_password
 
 captive_portal:
+i2c:
+  sda: 21
+  scl: 22
+  scan: true
+  id: bus_a
+
