@@ -1,0 +1,20 @@
+name: ESPHome CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  esphome-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run ESPHome Vount
+        uses: esphome/build-action@v2
+        with:
+          yaml_file: my-device.yaml # Change this to your filename
+          version: latest
