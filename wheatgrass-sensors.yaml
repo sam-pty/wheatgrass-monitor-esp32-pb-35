@@ -1,0 +1,25 @@
+esphome:
+  name: wheatgrass-sensors
+  friendly_name: wheatgrass sensors
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+logger:
+api:
+  encryption:
+    key: !secret api_key
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: "Wheatgrass-Sensors"
+    password: !secret ap_password
+
+captive_portal:
