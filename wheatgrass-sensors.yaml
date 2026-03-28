@@ -29,3 +29,15 @@ i2c:
   scan: true
   id: bus_a
 
+sensor:
+  # ---- BME280 (0x76)
+  - platform: bme280_i2c
+    address: 0x76
+    i2c_id: bus_a
+    temperature:
+      name: "Temperature"
+    humidity:
+      name: "Humidity"
+    pressure:
+      name: "Pressure"
+    update_interval: 0.5s
