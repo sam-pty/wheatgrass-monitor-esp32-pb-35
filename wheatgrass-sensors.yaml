@@ -41,3 +41,16 @@ sensor:
     pressure:
       name: "Pressure"
     update_interval: 0.5s
+
+# ---- Light Sensor TSL2591
+  - platform: tsl2591
+    name: "TSL2591"
+    i2c_id: bus_a      # use the same I2C bus you defined above
+    update_interval: 0.5s
+    gain: auto         # optional, but usually a good default
+
+    calculated_lux:
+      name: "Light"
+      device_class: illuminance
+      state_class: measurement
+      unit_of_measurement: lx
