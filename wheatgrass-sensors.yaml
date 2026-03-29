@@ -23,43 +23,63 @@ wifi:
     password: !secret ap_password
 
 captive_portal:
+
+# ---- I2C buses ----
 i2c:
-  sda: 21
-  scl: 22
-  scan: true
-  id: bus_a
+  - id: bus_a
+    sda: 21
+    scl: 22
+    scan: true
+
+  - id: bus_b
+    sda: 25
+    scl: 26
+    scan: true
 
 sensor:
-  # ---- BME280 (0x76)
+  # ---- BME280 #1 on SDA21 / SCL22 ----
   - platform: bme280_i2c
     address: 0x76
     i2c_id: bus_a
+    update_interval: 1s
     temperature:
-      name: "Temperature"
+      name: "BME280 #1 Temperature"
     humidity:
-      name: "Humidity"
+      name: "BME280 #1 Humidity"
     pressure:
-      name: "Pressure"
-    update_interval: 0.5s
+      name: "BME280 #1 Pressure"
 
-# ---- Light Sensor TSL2591
+  # ---- BME280 #2 on SDA25 / SCL26 ----
+  - platform: bme280_i2c
+    address: 0x76
+    i2c_id: bus_b
+    update_interval: 1s
+    temperature:
+      name: "BME280 #2 Temperature"
+    humidity:
+      name: "BME280 #2 Humidity"
+    pressure:
+      name: "BME280 #2 Pressure"
+
+  # ---- TSL2591 on same bus as BME280 #1 ----
   - platform: tsl2591
-    name: "TSL2591"
-    i2c_id: bus_a # same I2C bus
-    update_interval: 0.5s
-    gain: auto
+    i2c_id: bus_a
+    address: 0x29
+    update_interval: 1s
+    gain: AUTO
+    integration_time: 100ms
 
     calculated_lux:
       name: "Light"
-      device_class: illuminance
-      state_class: measurement
-      unit_of_measurement: lx
 
-# ---- Water Flow Sensor YF-S201
+  # ---- Water Flow Sensor YF-S201 on GPIO32 ----
   - platform: pulse_counter
-    pin: GPIO32
+    pin:
+      number: GPIO32
+      mode: INPUT_PULLUP
     name: "Water Flow Rate"
     update_interval: 1s
     unit_of_measurement: "L/min"
+    accuracy_decimals: 3
     filters:
       - multiply: 0.00225
