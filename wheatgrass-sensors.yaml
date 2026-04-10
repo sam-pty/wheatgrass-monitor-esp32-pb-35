@@ -31,35 +31,25 @@ i2c:
     scl: 22
     scan: true
 
-  - id: bus_b
-    sda: 25
-    scl: 26
-    scan: true
-
 sensor:
   # ---- BME280 #1 on SDA21 / SCL22 ----
   - platform: bme280_i2c
-    address: 0x76
     i2c_id: bus_a
-    update_interval: 1s
-    temperature:
-      name: "BME280 #1 Temperature"
-    humidity:
-      name: "BME280 #1 Humidity"
-    pressure:
-      name: "BME280 #1 Pressure"
-
-  # ---- BME280 #2 on SDA25 / SCL26 ----
-  - platform: bme280_i2c
     address: 0x76
-    i2c_id: bus_b
-    update_interval: 1s
+    update_interval: 5s
+    iir_filter: 4x
+
     temperature:
-      name: "BME280 #2 Temperature"
+      name: "BME280 Temperature"
+      oversampling: 16x
+
     humidity:
-      name: "BME280 #2 Humidity"
+      name: "BME280 Humidity"
+      oversampling: 16x
+
     pressure:
-      name: "BME280 #2 Pressure"
+      name: "BME280 Pressure"
+      oversampling: 16x
 
   # ---- TSL2591 on same bus as BME280 #1 ----
   - platform: tsl2591
